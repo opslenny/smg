@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMG Corelink | Premium E-Commerce</title>
+    
+    <!-- SMG CORELINK FAVICON -->
+    <link rel="icon" type="image/jpeg" href="https://z-cdn-media.chatglm.cn/files/ab29ce08-4f76-4f17-a055-ef63f6d3ddb9.jpeg?auth_key=1883674346-d3c6a8d43de04a51a7d074d4b1d4d200-0-9935cef37beb43df4dab561889c74950">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            transition-duration: 0.3s;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        html { 
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-snap-type: y proximity;
+            overflow-y: scroll;
+        }
+        
+        body {
+            will-change: scroll-position;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        
+        /* Smooth scroll sections */
+        section {
+            scroll-snap-align: start;
+            scroll-snap-stop: auto;
+        }
+        
+        main {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            will-change: background;
+        }
+        
+        /* Premium Local Image Background */
+        .bg-mesh {
+            background:
+                linear-gradient(135deg, rgba(248, 250, 252, 0.86) 0%, rgba(255, 255, 255, 0.78) 48%, rgba(226, 232, 240, 0.86) 100%),
+                url('piqsels.com-id-swinc.jpg') center / cover fixed no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-mesh::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.14), transparent 34%),
+                radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.12), transparent 36%);
+            z-index: -2;
+            pointer-events: none;
+            transition: opacity 0.6s ease-in-out;
+        }
+        
+        .bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0.35;
+            filter: blur(0.5px) brightness(1.1);
+            pointer-events: none;
+            object-fit: cover;
+            will-change: opacity;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.68);
+            box-shadow: 0 22px 70px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-photo {
+            background:
+                linear-gradient(135deg, rgba(15, 23, 42, 0.74), rgba(49, 46, 129, 0.58)),
+                url('piqsels.com-id-swinc.jpg') center / cover no-repeat;
+        }
+
+        .page { 
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .page.active { 
+            display: block; 
+            opacity: 1;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Global Smooth Transitions */
+        a, button, input, select, textarea {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Smooth transitions for interactive elements */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, box-shadow;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.01);
+        }
+        
+        /* Smooth Button Transitions */
+        button {
+            will-change: background-color, color, transform;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Smooth Input Transitions */
+        input, textarea, select {
+            will-change: box-shadow, border-color;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            transform: scale(1.01);
+        }
+        
+        /* Smooth Text Selection */
+        ::selection {
+            background-color: rgba(99, 102, 241, 0.2);
+            transition: background-color 0.2s ease-in-out;
+        }
+        
+        /* Custom Scrollbar with Smooth Animations */
+        ::-webkit-scrollbar { 
+            width: 10px; 
+            height: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        ::-webkit-scrollbar-track { 
+            background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+            border-radius: 10px;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover { 
+            background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(180deg, #64748b 0%, #475569 100%);
+        }
+        
+        /* Firefox Scrollbar Smoothness */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 #f1f5f9;
+        }
+        
+        *:hover {
+            scrollbar-color: #94a3b8 #e2e8f0;
+        }
+        
+        /* Smooth Navbar Transitions */
+        nav {
+            will-change: background-color, backdrop-filter;
+        }
+        
+        .nav-pill {
+            will-change: background-color, color, box-shadow;
+            position: relative;
+        }
+        
+        .nav-pill::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-pill:hover::after {
+            width: 100%;
+        }
+        
+        /* Smooth Image Transitions */
+        img {
+            will-change: transform, filter;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.5s ease-in-out;
+        }
+        
+        img:hover {
+            filter: brightness(1.05);
+        }
+        
+        /* Smooth Link Transitions */
+        a {
+            will-change: color;
+        }
+        
+        a:hover {
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-mesh text-gray-800 font-sans antialiased">
+    <!-- NAVIGATION (Ultra-smooth Glassmorphism) -->
+    <nav id="navbar" class="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-xl border-b border-white/20 transition-all duration-500 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
+                    <!-- Favicon inline as logo just in case, alongside text -->
+                    <img src="https://z-cdn-media.chatglm.cn/files/ab29ce08-4f76-4f17-a055-ef63f6d3ddb9.jpeg?auth_key=1883674346-d3c6a8d43de04a51a7d074d4b1d4d200-0-9935cef37beb43df4dab561889c74950" alt="Logo" class="w-10 h-10 rounded-full object-cover mr-3 ring-2 ring-indigo-100 group-hover:ring-indigo-300 transition-all duration-300">
+                    <div>
+                        <span class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight">SMG Corelink</span>
+                        <p class="text-[10px] text-gray-400 font-medium tracking-widest uppercase -mt-1">Global Commerce</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1 bg-gray-100/50 rounded-full p-1.5">
+                    <a onclick="navigate('home')" class="nav-pill px-5 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm cursor-pointer transition-all duration-300">Home</a>
+                    <a onclick="navigate('products')" class="nav-pill px-5 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm cursor-pointer transition-all duration-300">Products</a>
+                    <a onclick="navigate('contact')" class="nav-pill px-5 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm cursor-pointer transition-all duration-300">Contact</a>
+                    <a onclick="navigate('admin')" class="nav-pill px-5 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm cursor-pointer transition-all duration-300">Admin</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Role Switcher -->
+                    <div class="hidden sm:flex items-center bg-gray-100/50 rounded-full p-1 text-sm border border-white/50">
+                        <button id="btn-customer" onclick="setRole('customer')" class="px-4 py-1.5 rounded-full bg-white text-gray-900 shadow-sm transition-all duration-300 font-medium">User</button>
+                        <button id="btn-admin" onclick="setRole('admin')" class="px-4 py-1.5 rounded-full text-gray-500 transition-all duration-300 font-medium">Admin</button>
+                    </div>
+
+                    <button onclick="navigate('cart')" class="relative p-2.5 rounded-full bg-white shadow-sm border border-gray-100 text-gray-600 hover:text-indigo-600 hover:border-indigo-100 transition-all duration-300">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg hidden">0</span>
+                    </button>
+                    
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition">
+                        <i class="fa-solid fa-bars text-xl text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 px-6 pb-6 pt-2 space-y-1 shadow-xl">
+            <a onclick="navigate('home'); toggleMobileMenu()" class="block py-3 text-gray-700 font-medium border-b border-gray-50">Home</a>
+            <a onclick="navigate('products'); toggleMobileMenu()" class="block py-3 text-gray-700 font-medium border-b border-gray-50">Products</a>
+            <a onclick="navigate('contact'); toggleMobileMenu()" class="block py-3 text-gray-700 font-medium border-b border-gray-50">Contact</a>
+            <a onclick="navigate('admin'); toggleMobileMenu()" class="block py-3 text-gray-700 font-medium">Admin Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- HOME PAGE -->
+        <div id="page-home" class="page active">
+            <!-- Premium Hero Section -->
+            <section class="relative hero-photo rounded-3xl p-8 md:p-16 lg:p-20 text-white overflow-hidden mb-10 animate-slide-up shadow-2xl min-h-[620px] flex items-center">
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-950/72 via-slate-900/54 to-transparent"></div>
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 px-4 py-1.5 rounded-full text-sm font-medium mb-8">
+                        <i class="fa-solid fa-bolt text-yellow-400 mr-2"></i> Connecting Businesses. Creating Global Opportunities.
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight">
+                        Premium products for modern work, home, and lifestyle.
+                    </h1>
+                    <p class="text-slate-300 text-lg mb-10 leading-relaxed max-w-lg">
+                        Shop trusted tech, fashion, home essentials, sports gear, and beauty products with smooth delivery across Tanzania.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="navigate('products')" class="group bg-white text-slate-900 font-bold py-4 px-8 rounded-full hover:bg-indigo-50 transition-all duration-300 shadow-xl shadow-black/20 flex items-center justify-center">
+                            Explore Products 
+                            <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        <button onclick="navigate('contact')" class="border border-white/30 text-white font-medium py-4 px-8 rounded-full hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                            Contact Us
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute bottom-6 left-6 right-6 z-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white/12 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                        <p class="text-2xl font-extrabold">24hr</p>
+                        <p class="text-sm text-slate-200">Dar delivery options</p>
+                    </div>
+                    <div class="bg-white/12 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                        <p class="text-2xl font-extrabold">30+</p>
+                        <p class="text-sm text-slate-200">Curated products</p>
+                    </div>
+                    <div class="bg-white/12 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                        <p class="text-2xl font-extrabold">TZS</p>
+                        <p class="text-sm text-slate-200">Clear local pricing</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-20">
+                <div class="glass-panel rounded-3xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div><h3 class="font-bold text-gray-900">Fast Delivery</h3><p class="text-sm text-gray-500">Reliable dispatch and order tracking.</p></div>
+                </div>
+                <div class="glass-panel rounded-3xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div><h3 class="font-bold text-gray-900">Trusted Quality</h3><p class="text-sm text-gray-500">Selected products from known suppliers.</p></div>
+                </div>
+                <div class="glass-panel rounded-3xl p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center"><i class="fa-solid fa-headset"></i></div>
+                    <div><h3 class="font-bold text-gray-900">Helpful Support</h3><p class="text-sm text-gray-500">Quick help before and after purchase.</p></div>
+                </div>
+            </section>
+
+            <!-- Categories -->
+            <section class="mb-20">
+                <div class="flex items-end justify-between mb-10">
+                    <div>
+                        <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Collections</p>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Shop by Category</h2>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <div class="group cursor-pointer bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl card-hover border border-white/50 text-center">
+                        <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-microchip text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Electronics</h3>
+                        <p class="text-sm text-gray-400 mt-1">7 Items</p>
+                    </div>
+                    <div class="group cursor-pointer bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl card-hover border border-white/50 text-center">
+                        <div class="w-16 h-16 bg-pink-50 text-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-pink-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-shirt text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Fashion</h3>
+                        <p class="text-sm text-gray-400 mt-1">5 Items</p>
+                    </div>
+                    <div class="group cursor-pointer bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl card-hover border border-white/50 text-center">
+                        <div class="w-16 h-16 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-couch text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Home</h3>
+                        <p class="text-sm text-gray-400 mt-1">5 Items</p>
+                    </div>
+                    <div class="group cursor-pointer bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl card-hover border border-white/50 text-center">
+                        <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-dumbbell text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Sports</h3>
+                        <p class="text-sm text-gray-400 mt-1">3 Items</p>
+                    </div>
+                    <div class="group cursor-pointer bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl card-hover border border-white/50 text-center">
+                        <div class="w-16 h-16 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-gem text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Accessories</h3>
+                        <p class="text-sm text-gray-400 mt-1">4 Items</p>
+                    </div>
+                    <div class="group cursor-pointer bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl card-hover border border-white/50 text-center">
+                        <div class="w-16 h-16 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-rose-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <i class="fa-solid fa-spa text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900">Beauty</h3>
+                        <p class="text-sm text-gray-400 mt-1">4 Items</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products -->
+            <section class="pb-10">
+                <div class="flex items-end justify-between mb-10">
+                    <div>
+                        <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Handpicked for you</p>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Featured Products</h2>
+                    </div>
+                    <a onclick="navigate('products')" class="hidden sm:flex items-center text-indigo-600 font-semibold hover:text-indigo-800 cursor-pointer transition group">
+                        View All <i class="fa-solid fa-arrow-right ml-2 text-sm group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                <div id="featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Filled by JS -->
+                </div>
+            </section>
+
+            <section class="mt-16 grid lg:grid-cols-2 gap-8 items-stretch">
+                <div class="glass-panel rounded-3xl p-8 md:p-10">
+                    <p class="text-indigo-600 font-semibold text-sm mb-2 tracking-wider uppercase">Weekly Deal</p>
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Save on smart office essentials.</h2>
+                    <p class="text-gray-500 mb-8 leading-relaxed">Upgrade your desk with keyboards, headphones, monitors, chairs, and lighting selected for productivity and comfort.</p>
+                    <button onclick="navigate('products')" class="bg-gray-900 text-white px-7 py-3 rounded-xl font-bold hover:bg-indigo-600 transition-all duration-300">Shop Deals</button>
+                </div>
+                <div class="glass-panel rounded-3xl p-8 md:p-10 grid grid-cols-2 gap-5">
+                    <div class="rounded-2xl bg-slate-900 text-white p-5"><p class="text-3xl font-extrabold">15%</p><p class="text-sm text-slate-300 mt-1">Bundle discounts</p></div>
+                    <div class="rounded-2xl bg-white p-5 border border-gray-100"><p class="text-3xl font-extrabold text-gray-900">8K+</p><p class="text-sm text-gray-500 mt-1">Happy customers</p></div>
+                    <div class="rounded-2xl bg-white p-5 border border-gray-100"><p class="text-3xl font-extrabold text-gray-900">4.9</p><p class="text-sm text-gray-500 mt-1">Service rating</p></div>
+                    <div class="rounded-2xl bg-indigo-600 text-white p-5"><p class="text-3xl font-extrabold">COD</p><p class="text-sm text-indigo-100 mt-1">Pay on delivery</p></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PRODUCTS PAGE -->
+        <div id="page-products" class="page">
+            <div class="mb-10">
+                <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Our Collection</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">All Products</h1>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-10">
+                <!-- Sidebar Filters -->
+                <aside class="lg:w-1/4">
+                    <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-white/50 sticky top-28">
+                        <h3 class="font-bold text-xl mb-8 text-gray-900">Filters</h3>
+                        <div class="mb-8">
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Search</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="What are you looking for?" class="w-full pl-11 pr-4 py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                            </div>
+                        </div>
+                        <div class="mb-8">
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Category</label>
+                            <select id="category-filter" onchange="filterProducts()" class="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                                <option value="all">All Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Home">Home</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Beauty">Beauty</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Max Price: <span id="price-val" class="text-indigo-600">1,500,000 TZS</span></label>
+                            <input type="range" id="price-filter" min="10000" max="1500000" step="10000" value="1500000" oninput="document.getElementById('price-val').innerText=Number(this.value).toLocaleString()+' TZS'; filterProducts()" class="w-full accent-indigo-600 h-2">
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Product Grid -->
+                <div class="lg:w-3/4">
+                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CART PAGE -->
+        <div id="page-cart" class="page">
+            <div class="mb-10">
+                <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Shopping Bag</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Your Cart</h1>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="lg:w-2/3 space-y-6" id="cart-items">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="lg:w-1/3">
+                    <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-white/50 sticky top-28">
+                        <h3 class="text-xl font-bold mb-8 text-gray-900">Order Summary</h3>
+                        <div class="space-y-4 mb-6">
+                            <input id="checkout-name" type="text" placeholder="Customer name" class="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                            <input id="checkout-phone" type="tel" placeholder="Phone number" class="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                            <input id="checkout-address" type="text" placeholder="Delivery location" class="w-full px-4 py-3 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                        </div>
+                        <div class="flex justify-between mb-5 text-gray-500"><span>Subtotal</span><span id="cart-subtotal" class="font-medium text-gray-900">0 TZS</span></div>
+                        <div class="flex justify-between mb-5 text-gray-500"><span>Shipping</span><span class="font-medium text-gray-900">25,000 TZS</span></div>
+                        <hr class="my-6 border-dashed border-gray-200">
+                        <div class="flex justify-between mb-8 text-2xl font-extrabold text-gray-900"><span>Total</span><span id="cart-total">25,000 TZS</span></div>
+                        <button onclick="placeOrder()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg shadow-indigo-200">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN DASHBOARD -->
+        <div id="page-admin" class="page">
+            <div id="admin-login-panel" class="max-w-5xl mx-auto glass-panel rounded-3xl overflow-hidden">
+                <div class="grid lg:grid-cols-2">
+                    <div class="relative min-h-[280px] lg:min-h-[640px] bg-slate-900">
+                        <img src="piqsels.com-id-jlwpb.jpg" alt="Admin workspace" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-br from-slate-950/70 via-slate-900/35 to-indigo-900/45"></div>
+                        <div class="absolute left-6 right-6 bottom-6 text-white">
+                            <div class="inline-flex items-center bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-sm font-semibold mb-4">
+                                <i class="fa-solid fa-shield-halved mr-2 text-indigo-200"></i> Secure admin access
+                            </div>
+                            <h2 class="text-3xl font-extrabold tracking-tight">Manage orders with a clear control room.</h2>
+                            <p class="text-slate-200 mt-3 max-w-md">Track customer choices, update roles, and keep the shop moving from one focused dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="p-8 md:p-10 lg:p-12">
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-600 text-white flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-lock text-2xl"></i>
+                        </div>
+                        <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Admin Portal</p>
+                        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-3">Sign in to manage the store</h1>
+                        <p class="text-gray-500 mb-8">Use the admin account to view orders, update customer roles, and manage inventory.</p>
+                        <form class="space-y-5" onsubmit="handleAdminLogin(event)">
+                            <div>
+                                <label for="admin-username" class="block text-sm font-semibold text-gray-700 mb-2">Username</label>
+                                <input id="admin-username" type="text" autocomplete="username" required class="w-full px-5 py-3.5 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition" placeholder="admin">
+                            </div>
+                            <div>
+                                <label for="admin-password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                                <input id="admin-password" type="password" autocomplete="current-password" required class="w-full px-5 py-3.5 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition" placeholder="12345">
+                            </div>
+                            <p id="admin-login-error" class="hidden text-sm font-semibold text-red-600 bg-red-50 rounded-xl px-4 py-3"></p>
+                            <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg shadow-indigo-200">
+                                Login to Dashboard
+                            </button>
+                        </form>
+                        <div class="mt-6 rounded-2xl bg-indigo-50 text-indigo-700 p-4 text-sm">
+                            Demo login: <span class="font-bold">admin</span> / <span class="font-bold">12345</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-dashboard-content" class="hidden">
+            <div class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Restricted Area</p>
+                    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Admin Dashboard</h1>
+                </div>
+                <button onclick="logoutAdmin()" class="self-start md:self-auto bg-white text-gray-700 px-5 py-3 rounded-xl font-bold border border-gray-100 shadow-sm hover:bg-red-50 hover:text-red-600 transition-all duration-300">
+                    <i class="fa-solid fa-right-from-bracket mr-2"></i> Logout
+                </button>
+            </div>
+
+            <!-- Analytics Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-white/50 card-hover">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm font-medium mb-2">Total Revenue</p>
+                            <h3 id="admin-revenue" class="text-3xl font-extrabold text-gray-900">0</h3>
+                            <p class="text-sm text-emerald-500 font-semibold mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Live orders</p>
+                        </div>
+                        <div class="bg-indigo-50 text-indigo-600 p-4 rounded-2xl"><i class="fa-solid fa-dollar-sign text-2xl"></i></div>
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-white/50 card-hover">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm font-medium mb-2">Orders</p>
+                            <h3 id="admin-orders-count" class="text-3xl font-extrabold text-gray-900">0</h3>
+                            <p class="text-sm text-emerald-500 font-semibold mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Customer checkouts</p>
+                        </div>
+                        <div class="bg-emerald-50 text-emerald-600 p-4 rounded-2xl"><i class="fa-solid fa-box text-2xl"></i></div>
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-white/50 card-hover">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm font-medium mb-2">Customers</p>
+                            <h3 id="admin-customers-count" class="text-3xl font-extrabold text-gray-900">0</h3>
+                            <p class="text-sm text-emerald-500 font-semibold mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Registered roles</p>
+                        </div>
+                        <div class="bg-amber-50 text-amber-600 p-4 rounded-2xl"><i class="fa-solid fa-users text-2xl"></i></div>
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-white/50 card-hover">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-gray-400 text-sm font-medium mb-2">Active Products</p>
+                            <h3 id="admin-products-count" class="text-3xl font-extrabold text-gray-900">0</h3>
+                            <p class="text-sm text-emerald-500 font-semibold mt-2"><i class="fa-solid fa-check mr-1"></i> In catalog</p>
+                        </div>
+                        <div class="bg-pink-50 text-pink-600 p-4 rounded-2xl"><i class="fa-solid fa-tags text-2xl"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-sm border border-white/50 overflow-hidden">
+                <div class="p-8 border-b border-gray-100 flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-gray-900">Recent Orders</h3>
+                    <button class="text-sm text-indigo-600 font-semibold hover:underline">View All</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-gray-600">
+                        <thead class="bg-gray-50/50 text-xs uppercase text-gray-400 tracking-wider">
+                            <tr>
+                                <th class="px-8 py-4">Order ID</th>
+                                <th class="px-8 py-4">Customer</th>
+                                <th class="px-8 py-4">Amount</th>
+                                <th class="px-8 py-4">Status</th>
+                                <th class="px-8 py-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-body" class="divide-y divide-gray-50">
+                            <!-- Filled by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mt-10">
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-sm border border-white/50 overflow-hidden">
+                    <div class="p-8 border-b border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900">Role Management</h3>
+                        <p class="text-sm text-gray-500 mt-1">Admin can update customer roles and account status.</p>
+                    </div>
+                    <div id="admin-users-list" class="divide-y divide-gray-50">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-sm border border-white/50 overflow-hidden">
+                    <div class="p-8 border-b border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900">Inventory Control</h3>
+                        <p class="text-sm text-gray-500 mt-1">Quick view of products customers can choose from.</p>
+                    </div>
+                    <div id="admin-inventory-list" class="divide-y divide-gray-50 max-h-[430px] overflow-y-auto">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="page-contact" class="page">
+             <div class="mb-10">
+                <p class="text-indigo-600 font-semibold text-sm mb-1 tracking-wider uppercase">Get in Touch</p>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Contact Us</h1>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl shadow-sm border border-white/50">
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message sent successfully! (Prototype)')">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                            <input type="text" required class="w-full px-5 py-3.5 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                            <input type="email" required class="w-full px-5 py-3.5 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                            <textarea rows="5" required class="w-full px-5 py-3.5 bg-gray-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg shadow-indigo-200">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-sm border border-white/50 overflow-hidden h-full min-h-[400px]">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15847.592912744678!2d39.18977729321874!3d-6.78223883869912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4ff7630ee723%3A0x6c6438ddf5bb448e!2sEACLC%20East%20Africa%20Commercial%20%26%20Logistics%20Center!5e0!3m2!1sen!2stz!4v1783675090861!5m2!1sen!2stz" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- 404 PAGE -->
+        <div id="page-404" class="page">
+            <div class="flex flex-col items-center justify-center min-h-[70vh] text-center animate-fade-in">
+                <div class="relative">
+                    <h1 class="text-[150px] md:text-[200px] font-black text-transparent bg-clip-text bg-gradient-to-b from-gray-200 to-gray-100 leading-none select-none">404</h1>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fa-solid fa-ghost text-6xl text-gray-300 animate-bounce"></i>
+                    </div>
+                </div>
+                <h2 class="text-3xl font-extrabold text-gray-800 mt-4 -mt-10">Page Not Found</h2>
+                <p class="text-gray-400 mt-4 mb-10 max-w-md text-lg">Sorry, the page you are looking for doesn't exist or has been moved.</p>
+                <button onclick="navigate('home')" class="bg-gray-900 text-white px-10 py-4 rounded-full font-bold hover:bg-indigo-600 transition-all duration-300 shadow-xl">
+                    Go Back Home
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-24 relative overflow-hidden bg-slate-950 text-slate-300">
+        <div class="absolute inset-0 opacity-25 bg-[url('piqsels.com-id-swinc.jpg')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-950/95 to-indigo-950/90"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10 mb-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                <div>
+                    <p class="text-indigo-300 font-semibold text-sm tracking-wider uppercase mb-2">SMG Corelink</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Shop smarter. Deliver faster. Manage better.</h2>
+                    <p class="text-slate-400 mt-3 max-w-2xl">A modern ecommerce experience for customers and a practical admin workspace for orders, roles, and product control.</p>
+                </div>
+                <button onclick="navigate('products')" class="bg-white text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-indigo-100 transition-all duration-300 shadow-xl">
+                    Browse Products
+                </button>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-10">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center mb-5 text-white">
+                        <img src="https://z-cdn-media.chatglm.cn/files/ab29ce08-4f76-4f17-a055-ef63f6d3ddb9.jpeg?auth_key=1883674346-d3c6a8d43de04a51a7d074d4b1d4d200-0-9935cef37beb43df4dab561889c74950" alt="Logo" class="w-11 h-11 rounded-full object-cover mr-3 ring-2 ring-white/20">
+                        <div>
+                            <span class="text-2xl font-extrabold tracking-tight">SMG Corelink</span>
+                            <p class="text-xs text-slate-500 uppercase tracking-widest">Global Commerce</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 max-w-md leading-relaxed">Premium products, clear TZS pricing, customer checkout, and active admin management for everyday ecommerce operations.</p>
+                    <div class="flex gap-3 mt-6">
+                        <a class="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-300 cursor-pointer"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a class="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-300 cursor-pointer"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a class="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-300 cursor-pointer"><i class="fa-brands fa-instagram"></i></a>
+                        <a class="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all duration-300 cursor-pointer"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-5">Store</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a onclick="navigate('home')" class="hover:text-white cursor-pointer transition">Home</a></li>
+                        <li><a onclick="navigate('products')" class="hover:text-white cursor-pointer transition">Products</a></li>
+                        <li><a onclick="navigate('cart')" class="hover:text-white cursor-pointer transition">Cart</a></li>
+                        <li><a onclick="navigate('contact')" class="hover:text-white cursor-pointer transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-5">Admin</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><a onclick="navigate('admin')" class="hover:text-white cursor-pointer transition">Dashboard</a></li>
+                        <li><a onclick="navigate('admin')" class="hover:text-white cursor-pointer transition">Orders</a></li>
+                        <li><a onclick="navigate('admin')" class="hover:text-white cursor-pointer transition">Roles</a></li>
+                        <li><a onclick="navigate('admin')" class="hover:text-white cursor-pointer transition">Inventory</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-5">Contact</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><i class="fa-solid fa-location-dot mr-2 text-indigo-300"></i> Dar es Salaam, Tanzania</li>
+                        <li><i class="fa-solid fa-phone mr-2 text-indigo-300"></i> +255 700 000 000</li>
+                        <li><i class="fa-solid fa-envelope mr-2 text-indigo-300"></i> hello@smgcorelink.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row gap-4 md:items-center md:justify-between text-sm text-slate-500">
+                <p>&copy; 2026 SMG Corelink. All Rights Reserved.</p>
+                <p>Developed by <span class="text-indigo-300 font-semibold">ElchapoXcodes</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- FORMATTER FOR TZ SHILLINGS ---
+        function formatTZS(amount) {
+            return amount.toLocaleString('en-US') + ' TZS';
+        }
+
+        // --- MOCK DATA (EXPANDED & TZS PRICES) ---
+        const products = [
+            { id: 1, name: "Wireless Noise-Cancelling Headphones", price: 95000, category: "Electronics", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" },
+            { id: 2, name: "Vintage Premium Leather Jacket", price: 180000, category: "Fashion", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80" },
+            { id: 3, name: "Minimalist Architect Desk Lamp", price: 45000, category: "Home", img: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=500&q=80" },
+            { id: 4, name: "Smart Watch Ultra Series", price: 220000, category: "Electronics", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80" },
+            { id: 5, name: "Air Max Running Sneakers", price: 85000, category: "Fashion", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" },
+            { id: 6, name: "Handcrafted Ceramic Plant Pot", price: 18000, category: "Home", img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=80" },
+            { id: 7, name: "Polarized Aviator Sunglasses", price: 42000, category: "Accessories", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80" },
+            { id: 8, name: "Tactical Urban Backpack", price: 55000, category: "Accessories", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80" },
+            { id: 9, name: "Premium Espresso Coffee Maker", price: 145000, category: "Home", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&q=80" },
+            { id: 10, name: "Professional 4K Drone", price: 950000, category: "Electronics", img: "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=500&q=80" },
+            { id: 11, name: "Ergonomic Office Chair", price: 280000, category: "Home", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&q=80" },
+            { id: 12, name: "Wireless Mechanical Keyboard", price: 75000, category: "Electronics", img: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500&q=80" },
+            { id: 13, name: "Curved 27 Inch Productivity Monitor", price: 420000, category: "Electronics", img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&q=80" },
+            { id: 14, name: "Portable Bluetooth Speaker", price: 65000, category: "Electronics", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80" },
+            { id: 15, name: "Classic Cotton Overshirt", price: 48000, category: "Fashion", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80" },
+            { id: 16, name: "Signature Canvas Tote Bag", price: 28000, category: "Accessories", img: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=500&q=80" },
+            { id: 17, name: "Luxury Scented Candle Set", price: 32000, category: "Home", img: "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?w=500&q=80" },
+            { id: 18, name: "Yoga Mat and Stretch Kit", price: 45000, category: "Sports", img: "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=500&q=80" },
+            { id: 19, name: "Adjustable Fitness Dumbbells", price: 165000, category: "Sports", img: "https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=500&q=80" },
+            { id: 20, name: "Hydration Training Bottle", price: 15000, category: "Sports", img: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80" },
+            { id: 21, name: "Daily Glow Skincare Kit", price: 62000, category: "Beauty", img: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&q=80" },
+            { id: 22, name: "Professional Makeup Brush Set", price: 38000, category: "Beauty", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80" },
+            { id: 23, name: "Premium Hair Dryer", price: 90000, category: "Beauty", img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=80" },
+            { id: 24, name: "Leather Card Wallet", price: 24000, category: "Accessories", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&q=80" },
+            { id: 25, name: "Smart LED Light Strip", price: 42000, category: "Electronics", img: "https://images.unsplash.com/photo-1558002038-1055907df827?w=500&q=80" },
+            { id: 26, name: "Decorative Wall Art Frame", price: 58000, category: "Home", img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500&q=80" },
+            { id: 27, name: "Premium Linen Shirt", price: 62000, category: "Fashion", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&q=80" },
+            { id: 28, name: "Everyday Denim Jacket", price: 95000, category: "Fashion", img: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&q=80" }
+        ];
+
+        let cart = [];
+        let currentRole = 'customer';
+        let adminLoggedIn = false;
+        const adminCredentials = {
+            username: 'admin',
+            password: '12345'
+        };
+        let orders = [
+            {
+                id: 'ORD-7352',
+                customer: 'John Doe',
+                phone: '+255 712 111 222',
+                address: 'Masaki, Dar es Salaam',
+                amount: 185000,
+                status: 'Delivered',
+                items: [{ name: 'Wireless Noise-Cancelling Headphones', quantity: 1 }]
+            },
+            {
+                id: 'ORD-7351',
+                customer: 'Jane Smith',
+                phone: '+255 713 333 444',
+                address: 'Mikocheni, Dar es Salaam',
+                amount: 70000,
+                status: 'Pending',
+                items: [{ name: 'Yoga Mat and Stretch Kit', quantity: 1 }]
+            }
+        ];
+        let customers = [
+            { id: 1, name: 'John Doe', phone: '+255 712 111 222', role: 'Customer', status: 'Active' },
+            { id: 2, name: 'Jane Smith', phone: '+255 713 333 444', role: 'Customer', status: 'Active' },
+            { id: 3, name: 'Store Assistant', phone: '+255 714 555 666', role: 'Support', status: 'Active' }
+        ];
+
+        // --- ROUTING ---
+        function navigate(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                document.getElementById('page-404').classList.add('active');
+            }
+            
+            if (pageId === 'cart') renderCart();
+            if (pageId === 'admin') renderAdminGate();
+        }
+
+        function renderAdminGate() {
+            const loginPanel = document.getElementById('admin-login-panel');
+            const dashboard = document.getElementById('admin-dashboard-content');
+            if (adminLoggedIn) {
+                loginPanel.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                setRole('admin');
+                renderAdmin();
+            } else {
+                dashboard.classList.add('hidden');
+                loginPanel.classList.remove('hidden');
+                setRole('customer');
+            }
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('admin-username').value.trim();
+            const password = document.getElementById('admin-password').value.trim();
+            const error = document.getElementById('admin-login-error');
+
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                adminLoggedIn = true;
+                error.classList.add('hidden');
+                document.getElementById('admin-password').value = '';
+                renderAdminGate();
+            } else {
+                error.innerText = 'Wrong username or password. Try admin / 12345.';
+                error.classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            adminLoggedIn = false;
+            renderAdminGate();
+        }
+
+        // --- ROLE MANAGEMENT ---
+        function setRole(role) {
+            currentRole = role;
+            const btnCust = document.getElementById('btn-customer');
+            const btnAdmin = document.getElementById('btn-admin');
+            
+            if (role === 'admin') {
+                btnAdmin.className = "px-4 py-1.5 rounded-full bg-white text-gray-900 shadow-sm transition-all duration-300 font-medium";
+                btnCust.className = "px-4 py-1.5 rounded-full text-gray-500 transition-all duration-300 font-medium";
+            } else {
+                btnCust.className = "px-4 py-1.5 rounded-full bg-white text-gray-900 shadow-sm transition-all duration-300 font-medium";
+                btnAdmin.className = "px-4 py-1.5 rounded-full text-gray-500 transition-all duration-300 font-medium";
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // --- PRODUCT RENDERING ---
+        function createProductCard(product) {
+            return `
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-sm border border-white/50 overflow-hidden group card-hover">
+                    <div class="relative h-64 overflow-hidden bg-gray-100">
+                        <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 cursor-pointer hover:bg-indigo-600 hover:text-white text-gray-800" onclick="addToCart(${product.id})">
+                            <i class="fa-solid fa-plus text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-indigo-600 font-bold mb-2 tracking-wider uppercase">${product.category}</p>
+                        <h3 class="font-bold text-gray-900 text-lg mb-4 leading-snug">${product.name}</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-extrabold text-gray-900">${formatTZS(product.price)}</span>
+                            <button onclick="addToCart(${product.id})" class="bg-gray-900 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-indigo-600 transition-all duration-300 shadow-sm">
+                                Add <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProducts(list, targetId) {
+            const target = document.getElementById(targetId);
+            if (list.length === 0) {
+                target.innerHTML = `
+                    <div class="col-span-full text-center py-20 glass-panel rounded-3xl">
+                        <i class="fa-solid fa-magnifying-glass text-5xl text-gray-300 mb-5"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">No products found</h3>
+                        <p class="text-gray-500 mt-2">Try a different search, category, or price range.</p>
+                    </div>`;
+                return;
+            }
+            target.innerHTML = list.map(createProductCard).join('');
+        }
+
+        function filterProducts() {
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const category = document.getElementById('category-filter').value;
+            const maxPrice = parseInt(document.getElementById('price-filter').value);
+
+            const filtered = products.filter(p => {
+                const matchName = p.name.toLowerCase().includes(search);
+                const matchCat = category === 'all' || p.category === category;
+                const matchPrice = p.price <= maxPrice;
+                return matchName && matchCat && matchPrice;
+            });
+
+            renderProducts(filtered, 'product-grid');
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+            renderCart();
+        }
+
+        function updateQuantity(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                    return;
+                }
+            }
+            updateCartUI();
+            renderCart();
+        }
+
+        function updateCartUI() {
+            const countEl = document.getElementById('cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                countEl.classList.remove('hidden');
+                countEl.innerText = totalItems;
+            } else {
+                countEl.classList.add('hidden');
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-2 text-center py-24 bg-white/80 backdrop-blur-sm rounded-3xl border border-white/50">
+                        <i class="fa-solid fa-bag-shopping text-7xl text-gray-200 mb-6"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">Your cart is empty</h3>
+                        <p class="text-gray-400 mt-2 mb-8">Looks like you haven't added anything yet.</p>
+                        <button onclick="navigate('products')" class="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-600 transition-all duration-300">Start Shopping</button>
+                    </div>`;
+                document.getElementById('cart-subtotal').innerText = '0 TZS';
+                document.getElementById('cart-total').innerText = '25,000 TZS';
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center bg-white/80 backdrop-blur-sm p-5 rounded-3xl shadow-sm border border-white/50 animate-fade-in">
+                    <img src="${item.img}" class="w-28 h-28 object-cover rounded-2xl mr-6 shadow-sm">
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-gray-900 text-lg">${item.name}</h3>
+                        <p class="text-indigo-600 font-extrabold mt-1">${formatTZS(item.price)}</p>
+                    </div>
+                    <div class="flex items-center space-x-4 bg-gray-50 rounded-full p-1.5">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-red-50 hover:text-red-500 shadow-sm transition font-bold">-</button>
+                        <span class="font-bold w-8 text-center text-gray-900">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-indigo-50 hover:text-indigo-600 shadow-sm transition font-bold">+</button>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="ml-6 w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-all duration-300">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-subtotal').innerText = formatTZS(subtotal);
+            document.getElementById('cart-total').innerText = formatTZS(subtotal + 25000); // 25k shipping
+        }
+
+        // --- CHECKOUT AND ADMIN LOGIC ---
+        function placeOrder() {
+            if (cart.length === 0) {
+                alert('Please add products to the cart before checkout.');
+                return;
+            }
+
+            const nameInput = document.getElementById('checkout-name');
+            const phoneInput = document.getElementById('checkout-phone');
+            const addressInput = document.getElementById('checkout-address');
+            const customerName = nameInput.value.trim() || 'Walk-in Customer';
+            const phone = phoneInput.value.trim() || 'Not provided';
+            const address = addressInput.value.trim() || 'Pickup / confirm by phone';
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const newOrder = {
+                id: `ORD-${Math.floor(8000 + Math.random() * 1000)}`,
+                customer: customerName,
+                phone,
+                address,
+                amount: subtotal + 25000,
+                status: 'Pending',
+                items: cart.map(item => ({ name: item.name, quantity: item.quantity }))
+            };
+
+            orders.unshift(newOrder);
+            if (!customers.some(customer => customer.phone === phone && phone !== 'Not provided')) {
+                customers.unshift({
+                    id: Date.now(),
+                    name: customerName,
+                    phone,
+                    role: 'Customer',
+                    status: 'Active'
+                });
+            }
+
+            cart = [];
+            nameInput.value = '';
+            phoneInput.value = '';
+            addressInput.value = '';
+            updateCartUI();
+            renderCart();
+            alert('Order placed successfully. Admin can now manage it from the dashboard.');
+            navigate('admin');
+        }
+
+        function statusClass(status) {
+            const styles = {
+                Pending: 'bg-amber-50 text-amber-600',
+                Processing: 'bg-indigo-50 text-indigo-600',
+                Shipped: 'bg-blue-50 text-blue-600',
+                Delivered: 'bg-emerald-50 text-emerald-600',
+                Cancelled: 'bg-red-50 text-red-600'
+            };
+            return styles[status] || 'bg-gray-50 text-gray-600';
+        }
+
+        function renderAdmin() {
+            if (!adminLoggedIn) return;
+            document.getElementById('admin-revenue').innerText = formatTZS(orders.reduce((sum, order) => sum + order.amount, 0));
+            document.getElementById('admin-orders-count').innerText = orders.length;
+            document.getElementById('admin-customers-count').innerText = customers.length;
+            document.getElementById('admin-products-count').innerText = products.length;
+
+            document.getElementById('admin-orders-body').innerHTML = orders.map(order => `
+                <tr class="hover:bg-gray-50/50 transition-colors duration-200">
+                    <td class="px-8 py-5 font-bold text-gray-900">#${order.id}</td>
+                    <td class="px-8 py-5">
+                        <p class="font-semibold text-gray-900">${order.customer}</p>
+                        <p class="text-xs text-gray-400">${order.phone} - ${order.address}</p>
+                    </td>
+                    <td class="px-8 py-5 font-medium">${formatTZS(order.amount)}</td>
+                    <td class="px-8 py-5">
+                        <span class="${statusClass(order.status)} px-4 py-1.5 rounded-full text-xs font-bold">${order.status}</span>
+                    </td>
+                    <td class="px-8 py-5">
+                        <select onchange="updateOrderStatus('${order.id}', this.value)" class="bg-gray-50 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-indigo-500 border-0">
+                            ${['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map(status => `<option value="${status}" ${order.status === status ? 'selected' : ''}>${status}</option>`).join('')}
+                        </select>
+                        <button onclick="viewOrder('${order.id}')" class="ml-2 text-indigo-600 font-semibold hover:underline text-sm">View</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            document.getElementById('admin-users-list').innerHTML = customers.map(customer => `
+                <div class="p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h4 class="font-bold text-gray-900">${customer.name}</h4>
+                        <p class="text-sm text-gray-500">${customer.phone}</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <select onchange="updateCustomerRole(${customer.id}, this.value)" class="bg-gray-50 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-indigo-500 border-0">
+                            ${['Customer', 'Support', 'Manager', 'Admin'].map(role => `<option value="${role}" ${customer.role === role ? 'selected' : ''}>${role}</option>`).join('')}
+                        </select>
+                        <select onchange="updateCustomerStatus(${customer.id}, this.value)" class="bg-gray-50 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-indigo-500 border-0">
+                            ${['Active', 'Paused', 'Blocked'].map(status => `<option value="${status}" ${customer.status === status ? 'selected' : ''}>${status}</option>`).join('')}
+                        </select>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('admin-inventory-list').innerHTML = products.slice(0, 14).map(product => `
+                <div class="p-5 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <img src="${product.img}" alt="${product.name}" class="w-14 h-14 rounded-2xl object-cover bg-gray-100">
+                        <div>
+                            <h4 class="font-bold text-gray-900">${product.name}</h4>
+                            <p class="text-xs text-gray-500">${product.category}</p>
+                        </div>
+                    </div>
+                    <p class="font-extrabold text-gray-900">${formatTZS(product.price)}</p>
+                </div>
+            `).join('');
+        }
+
+        function updateOrderStatus(orderId, status) {
+            const order = orders.find(item => item.id === orderId);
+            if (order) {
+                order.status = status;
+                renderAdmin();
+            }
+        }
+
+        function updateCustomerRole(customerId, role) {
+            const customer = customers.find(item => item.id === customerId);
+            if (customer) {
+                customer.role = role;
+                renderAdmin();
+            }
+        }
+
+        function updateCustomerStatus(customerId, status) {
+            const customer = customers.find(item => item.id === customerId);
+            if (customer) {
+                customer.status = status;
+                renderAdmin();
+            }
+        }
+
+        function viewOrder(orderId) {
+            const order = orders.find(item => item.id === orderId);
+            if (!order) return;
+            const items = order.items.map(item => `${item.quantity} x ${item.name}`).join('\n');
+            alert(`Order #${order.id}\nCustomer: ${order.customer}\nPhone: ${order.phone}\nLocation: ${order.address}\nStatus: ${order.status}\nTotal: ${formatTZS(order.amount)}\n\nItems:\n${items}`);
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products.slice(0, 8), 'featured-products');
+            renderProducts(products, 'product-grid');
+            renderAdminGate();
+        });
+    </script>
+</body>
+</html>
